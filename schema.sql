@@ -2,7 +2,6 @@ create database inventiolite;
 use inventiolite;
 set sql_mode='';
 
---modificado por dae 06/03/2018
 create table local(
 	id int not null auto_increment primary key,
 	name varchar(255),
@@ -10,6 +9,8 @@ create table local(
 	phone1 varchar(255),
 	phone2 varchar(255)
 );
+
+insert into local(name) value("Global");
 
 create table user(
 	id int not null auto_increment primary key,
@@ -26,7 +27,7 @@ create table user(
 	foreign key (local_id) references local(id)
 );
 
-insert into user(name,lastname,email,password,is_active,is_admin,created_at) value ("Administrador", "","admin","90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad",1,1,NOW());
+insert into user(name,lastname,email,password,is_active,is_admin,created_at,local_id) value ("Administrador", "","admin","90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad",1,1,NOW(),1);
 
 create table category(
 	id int not null auto_increment primary key,
@@ -55,13 +56,6 @@ create table product(
 	foreign key (user_id) references user(id)
 );
 
-create table product_price(
-	id int not null auto_increment primary key,
-	product_id int,
-	price double,
-	quantity int,
-	foreign key (product_id) references product(id)
-);
 
 /*
 person kind

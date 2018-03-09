@@ -91,6 +91,20 @@ class OperationData {
 		return $q;
 	}
 
+	public static function getQYesFByLocalId($product_id,$local_id){
+		$q=0;
+		$operations = self::getAllByProductId($product_id);
+		$input_id = OperationTypeData::getByName("entrada")->id;
+		$output_id = OperationTypeData::getByName("salida")->id;
+		foreach($operations as $operation){
+			if($operation->local_id==$local_id){
+				if($operation->operation_type_id==$input_id){ $q+=$operation->q; }
+				else if($operation->operation_type_id==$output_id){  $q+=(-$operation->q); }
+			}
+		}
+		// print_r($data);
+		return $q;
+	}
 
 
 	public static function getAllByProductIdCutId($product_id,$cut_id){

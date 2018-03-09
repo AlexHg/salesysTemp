@@ -55,10 +55,14 @@ class SellData {
 		return Model::one($query[0],new SellData());
 	}
 
-
-
 	public static function getSells(){
 		$sql = "select * from ".self::$tablename." where operation_type_id=2 order by created_at desc";
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new SellData());
+	}
+
+	public static function getSellsByLocalId($id){
+		$sql = "select * from ".self::$tablename." where operation_type_id=2 and local_id=$id order by created_at desc";
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new SellData());
 	}
@@ -77,6 +81,12 @@ class SellData {
 
 	public static function getRes(){
 		$sql = "select * from ".self::$tablename." where operation_type_id=1 order by created_at desc";
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new SellData());
+	}
+
+	public static function getResByLocalId(){
+		$sql = "select * from ".self::$tablename." where operation_type_id=1 and local_id=$id order by created_at desc";
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new SellData());
 	}

@@ -4,16 +4,19 @@ class ProductData {
 
 	public function ProductData(){
 		$this->name = "";
+		$this->price_in = "";
+		$this->price_out = "";
 		$this->unit = "";
 		$this->user_id = "";
+		$this->presentation = "0";
 		$this->created_at = "NOW()";
 	}
 
 	public function getCategory(){ return CategoryData::getById($this->category_id);}
 
 	public function add(){
-		$sql = "insert into ".self::$tablename." (name,description,user_id,unit,created_at) ";
-		$sql .= "value (\"$this->name\",\"$this->description\",$this->user_id,\"$this->unit\",NOW())";
+		$sql = "insert into ".self::$tablename." (barcode,name,description,price_in,price_out,user_id,presentation,unit,category_id,inventary_min,created_at) ";
+		$sql .= "value (\"$this->barcode\",\"$this->name\",\"$this->description\",\"$this->price_in\",\"$this->price_out\",$this->user_id,\"$this->presentation\",\"$this->unit\",$this->category_id,$this->inventary_min,NOW())";
 		return Executor::doit($sql);
 	}
 	public function add_with_image(){
@@ -34,7 +37,7 @@ class ProductData {
 
 // partiendo de que ya tenemos creado un objecto ProductData previamente utilizamos el contexto
 	public function update(){
-		$sql = "update ".self::$tablename." set name=\"$this->name\",unit=\"$this->unit\",description=\"$this->description\",is_active=\"$this->is_active\" where id=$this->id";
+		$sql = "update ".self::$tablename." set barcode=\"$this->barcode\",name=\"$this->name\",price_in=\"$this->price_in\",price_out=\"$this->price_out\",unit=\"$this->unit\",presentation=\"$this->presentation\",category_id=$this->category_id,inventary_min=\"$this->inventary_min\",description=\"$this->description\",is_active=\"$this->is_active\" where id=$this->id";
 		Executor::doit($sql);
 	}
 

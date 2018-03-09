@@ -52,8 +52,6 @@ $op->is_oficial=1;
 $op->add();
 }
 
-//priceData te invoco ALE!!!
-
 print "<script>window.location='index.php?view=products';</script>";
 
 
