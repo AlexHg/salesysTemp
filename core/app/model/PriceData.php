@@ -36,6 +36,13 @@ class PriceData {
 
 	}
 
+	public static function getByProductId($id){
+		$sql = "select * from ".self::$tablename." where product_id=$id";
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new PriceData());
+
+	}	
+	
 	public static function getAll(){
 		$sql = "select * from ".self::$tablename;
 		$query = Executor::doit($sql);
