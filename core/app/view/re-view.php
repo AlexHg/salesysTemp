@@ -1,3 +1,5 @@
+
+
 <div class="row">
 	<div class="col-md-12">
 	<h1>Reabastecer Inventario</h1>
@@ -18,6 +20,7 @@
 <?php if(isset($_GET["product"])):?>
 	<?php
 $products = ProductData::getLike($_GET["product"]);
+$users = UserData::getAll();
 if(count($products)>0){
 	?>
 <h3>Resultados de la Busqueda</h3>
@@ -27,7 +30,7 @@ if(count($products)>0){
 		<th>Nombre</th>
 		<th>Unidad</th>
 		<th>Precio unitario</th>
-		<th>En inventario</th>
+		<th>Local</th>
 		<th>Cantidad</th>
 		<th style="width:100px;"></th>
 	</thead>
@@ -35,21 +38,41 @@ if(count($products)>0){
 $products_in_cero=0;
 	 foreach($products as $product):
 $q= OperationData::getQYesF($product->id);
+
 	?>
 		<form method="post" action="index.php?view=addtore">
 	<tr class="<?php if($q<=$product->inventary_min){ echo "danger"; }?>">
 		<td style="width:80px;"><?php echo $product->id; ?></td>
 		<td><?php echo $product->name; ?></td>
-		<td><?php echo $product->unit; ?></td>
+		<td><?php if($_SESSION['local_id']) {echo $product->unit;} ?></td>
 		<td><b>$<?php echo $product->price_in; ?></b></td>
 		<td>
-			<?php echo $q; ?>
+			<?php if($_SESSION['local_id'] == 0): ?>
+
+				<select name="local_id" id="local_id">
+					
+					<?php  foreach(LocalData::getAll() as $local): ?>
+
+						<option value="<?php echo $local->id ?>"><?php echo $local->name ?></option>
+	 				<?php endforeach; ?>
+				</select>
+
+			<?php else: ?>
+
+			<input type="hidden" name="local_id" value="<?php echo $_SESSION["local_id"]; ?>">
+			<?php 
+				echo $_SESSION["local_name"]; 
+				//$product->local_id = $_SESSION["local_id"];
+	 			endif;
+			
+			?>
 		</td>
 		<td>
-		<input type="hidden" name="product_id" value="<?php echo $product->id; ?>">
-		<input type="" class="form-control" required name="q" placeholder="Cantidad de producto ..."></td>
+			<input type="hidden" name="product_id" value="<?php echo $product->id; ?>">
+			<input type="" class="form-control" required name="q" placeholder="Cantidad de producto ...">
+		</td>
 		<td style="width:100px;">
-		<button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-refresh"></i> Agregar</button>
+			<button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-refresh"></i> Agregar</button>
 		</td>
 	</tr>
 	</form>
@@ -102,6 +125,7 @@ $total = 0;
 	<th style="width:30px;">Cantidad</th>
 	<th style="width:30px;">Unidad</th>
 	<th>Producto</th>
+	<th>Local</th>
 	<th style="width:30px;">Precio Unitario</th>
 	<th style="width:30px;">Precio Total</th>
 	<th ></th>
@@ -114,6 +138,7 @@ $product = ProductData::getById($p["product_id"]);
 	<td ><?php echo $p["q"]; ?></td>
 	<td><?php echo $product->unit; ?></td>
 	<td><?php echo $product->name; ?></td>
+	<td><?php echo $p['localid']; ?></td>
 	<td><b>$ <?php echo number_format($product->price_in); ?></b></td>
 	<td><b>$ <?php  $pt = $product->price_in*$p["q"]; $total +=$pt; echo number_format($pt); ?></b></td>
 	<td style="width:30px;"><a href="index.php?view=clearre&product_id=<?php echo $product->id; ?>" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Cancelar</a></td>

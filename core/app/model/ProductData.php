@@ -9,6 +9,7 @@ class ProductData {
 		$this->unit = "";
 		$this->user_id = "";
 		$this->presentation = "0";
+		$this->localid="";
 		$this->created_at = "NOW()";
 	}
 
@@ -73,6 +74,7 @@ class ProductData {
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new ProductData());
 	}
+
 
 
 	public static function getLike($p){

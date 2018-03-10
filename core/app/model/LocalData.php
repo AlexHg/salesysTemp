@@ -38,7 +38,15 @@ class LocalData {
 	}
 
 	public static function getAll(){
-		$sql = "select * from ".self::$tablename;
+		$sql = "select * from ".self::$tablename." where id <> 0";
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new LocalData());
+	}
+
+
+
+	public static function getCount(){
+		$sql = "select count(*) as i from ".self::$tablename;
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new LocalData());
 	}

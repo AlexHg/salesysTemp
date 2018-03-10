@@ -3,7 +3,7 @@
 if(!isset($_SESSION["cart"])){
 
 
-	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"]);
+	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"],"localid"=>$_SESSION["local_id"]);
 	$_SESSION["cart"] = array($product);
 
 
@@ -99,7 +99,7 @@ if($found==true){
 
 if($found==false){
     $nc = count($cart);
-	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"]);
+	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"],"localid"=>$_SESSION["local_id"]);
 	$cart[$nc] = $product;
 //	print_r($cart);
 	$_SESSION["cart"] = $cart;
@@ -107,7 +107,7 @@ if($found==false){
 
 }
 }
- print "<script>window.location='index.php?view=sell';</script>";
+print "<script>window.location='index.php?view=sell';</script>";
 // unset($_SESSION["cart"]);
 
 ?>

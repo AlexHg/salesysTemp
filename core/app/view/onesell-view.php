@@ -35,12 +35,12 @@ if(isset($_COOKIE["selled"])){
 ?>
 <table class="table table-bordered">
 <?php if($sell->person_id!=""):
-$client = $sell->getPerson();
+	$client = $sell->getPerson();
 ?>
-<tr>
-	<td style="width:150px;">Cliente</td>
-	<td><?php echo $client->name." ".$client->lastname;?></td>
-</tr>
+	<tr>
+		<td style="width:150px;">Cliente</td>
+		<td><?php echo $client->name." ".$client->lastname;?></td>
+	</tr>
 
 <?php endif; ?>
 <?php if($sell->user_id!=""):

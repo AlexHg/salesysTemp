@@ -3,7 +3,8 @@
 if(!isset($_SESSION["reabastecer"])){
 
 
-	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"]);
+	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"],"localid"=>$_POST['local_id']);
+
 	$_SESSION["reabastecer"] = array($product);
 
 
@@ -34,7 +35,7 @@ $can = true;
 <?php
 if($can==true){
 foreach($cart as $c){
-	if($c["product_id"]==$_POST["product_id"]){
+	if($c["product_id"]==$_POST["product_id"] && $c["localid"] == $_POST['local_id']){
 		echo "found";
 		$found=true;
 		break;
@@ -53,7 +54,7 @@ if($found==true){
 
 if($found==false){
     $nc = count($cart);
-	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"]);
+	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"],"localid"=>$_POST['local_id']);
 	$cart[$nc] = $product;
 //	print_r($cart);
 	$_SESSION["reabastecer"] = $cart;

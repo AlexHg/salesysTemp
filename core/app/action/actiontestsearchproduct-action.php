@@ -18,7 +18,7 @@ if(count($products)>0){
 	<?php
 $products_in_cero=0;
 	 foreach($products as $product):
-$q= OperationData::getQYesF($product->id);
+$q= OperationData::getQYesFByLocalId($product->id, $_SESSION['local_id']);
 	?>
 	<?php 
 	if($q>0):?>

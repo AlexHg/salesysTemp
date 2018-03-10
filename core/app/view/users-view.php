@@ -32,6 +32,7 @@
 			<th>Email</th>
 			<th>Activo</th>
 			<th>Admin</th>
+			<th>Local</th>
 			<th></th>
 			</thead>
 			<?php
@@ -50,6 +51,9 @@
 					<?php if($user->is_admin):?>
 						<i class="glyphicon glyphicon-ok"></i>
 					<?php endif; ?>
+				</td>
+				<td>
+					<?php echo $user->local_id; ?>
 				</td>
 				<td style="width:30px;"><a href="index.php?view=edituser&id=<?php echo $user->id;?>" class="btn btn-warning btn-xs">Editar</a></td>
 				</tr>

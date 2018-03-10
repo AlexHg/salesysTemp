@@ -58,6 +58,7 @@ $_SESSION["errors"] = $errors;
 		if($process==true){
 			$sell = new SellData();
 			$sell->user_id = $_SESSION["user_id"];
+			$sell->local_id = $_SESSION["local_id"];
 
 			$sell->total = $_POST["total"];
 			$sell->discount = $_POST["discount"];
@@ -79,6 +80,7 @@ $_SESSION["errors"] = $errors;
 			 $op->operation_type_id=OperationTypeData::getByName("salida")->id;
 			 $op->sell_id=$s[1];
 			 $op->q= $c["q"];
+			 $op->local_id = $c["localid"];
 
 			if(isset($_POST["is_oficial"])){
 				$op->is_oficial = 1;

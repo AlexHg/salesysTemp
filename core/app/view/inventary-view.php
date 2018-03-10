@@ -23,6 +23,7 @@ if(isset($_GET["limit"]) && $_GET["limit"]!="" && $_GET["limit"]!=$limit){
 	$limit=$_GET["limit"];
 }
 $products = ProductData::getAll();
+//print_r($products);
 if(count($products)>0){
 
 if($page==1){
@@ -59,15 +60,22 @@ if($px<=$npaginas):
 	<thead>
 		<th>Codigo</th>
 		<th>Nombre</th>
+		<th>Local</th>
 		<th>Disponible</th>
 		<th></th>
 	</thead>
 	<?php foreach($curr_products as $product):
-	$q=OperationData::getQYesF($product->id);
+	//$q=OperationData::getQYesF($product->id);
+	
+	foreach(LocalData::getAll() as $local):
+			
+			$q=OperationData::getQYesFByLocalId($product->id, $local->id);
+			if($_SESSION['local_id'] == $local->id || $_SESSION['local_id'] == 0):
 	?>
 	<tr class="<?php if($q<=$product->inventary_min/2){ echo "danger";}else if($q<=$product->inventary_min){ echo "warning";}?>">
 		<td><?php echo $product->id; ?></td>
 		<td><?php echo $product->name; ?></td>
+		<td><?php echo $local->name; ?></td>
 		<td>
 			
 			<?php echo $q; ?>
@@ -78,7 +86,11 @@ if($px<=$npaginas):
 		<a href="index.php?view=history&product_id=<?php echo $product->id; ?>" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-time"></i> Historial</a>
 		</td>
 	</tr>
-	<?php endforeach;?>
+	<?php 
+			endif;
+		endforeach; 
+	endforeach;
+	?>
 </table>
 <div class="btn-group pull-right">
 <?php

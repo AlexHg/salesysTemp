@@ -45,7 +45,9 @@
 
 			}
 
-
+			?>
+			</table>
+			<?php
 
 		}else{
 			echo "<p class='alert alert-danger'>No hay clientes</p>";

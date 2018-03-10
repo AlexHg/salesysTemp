@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Inventio Lite | Dashboard</title>
+    <title><?php echo $_SESSION["local_name"]; ?> | SALES</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.4 -->
     <link href="plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -43,7 +43,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>I</b>L</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>INVENTIO</b>LITE</span>
+          <span class="logo-lg">TIENDA: <b><?php echo $_SESSION["local_name"]; ?></b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -70,8 +70,7 @@
                 <ul class="dropdown-menu">
                   <!-- The user image in the menu -->
                   <li class="">
-                      <a href="http://evilnapsis.com/" target="_blank" class="">Ir a Evilnapsis</a>
-                      <a href="http://evilnapsis.com/product/inventio-max/" target="_blank" class="">Ver Inventio Max</a>
+
                   </li>
                   
                   <!-- Menu Footer-->
@@ -109,9 +108,10 @@
             <li class="header">ADMINISTRACION</li>
             <?php if(isset($_SESSION["user_id"])):?>
                         <li><a href="./index.php?view=home"><i class='fa fa-home'></i> <span>Inicio</span></a></li>
-            <li><a href="./?view=sell"><i class='fa fa-usd'></i> <span>Vender</span></a></li>
+                <?php if($_SESSION['local_id'] != 0): ?>
+                        <li><a href="./?view=sell"><i class='fa fa-usd'></i> <span>Vender</span></a></li>
+                <?php endif; ?>
             <li><a href="./?view=sells"><i class='fa fa-shopping-cart'></i> <span>Ventas</span></a></li>
-            <li><a href="./?view=box"><i class='fa fa-cube'></i> <span>Caja</span></a></li>
             <li><a href="./?view=products"><i class='fa fa-glass'></i> <span>Productos</span></a></li>
 
             <li class="treeview">
@@ -127,8 +127,10 @@
               <a href="#"><i class='fa fa-area-chart'></i> <span>Inventario</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 <li><a href="./?view=inventary">Inventario</a></li>
-                <li><a href="./?view=re">Abastecer</a></li>
-                <li><a href="./?view=res">Abastecimientos</a></li>
+                <?php if($_SESSION['local_id'] == 0): ?>
+                  <li><a href="./?view=re">Abastecer</a></li>
+                  <li><a href="./?view=res">Abastecimientos</a></li>
+                <?php endif; ?>
               </ul>
             </li>
                         <li class="treeview">
@@ -144,7 +146,7 @@
               <a href="#"><i class='fa fa-cog'></i> <span>Administracion</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 <li><a href="./?view=users">Usuarios</a></li>
-                <li><a href="./?view=settings">Configuracion</a></li>
+                
               </ul>
             </li>
           <?php endif;?>
@@ -165,14 +167,14 @@
 
         <footer class="main-footer">
         <div class="pull-right hidden-xs">
-          <b>Version</b> 3.0
+          <b>Version</b> BETA
         </div>
-        <strong>Copyright &copy; 2016 <a href="http://evilnapsis.com/" target="_blank">Evilnapsis</a></strong>
+        <strong>Copyright &copy; 2018</strong>
       </footer>
       <?php else:?>
 <div class="login-box">
       <div class="login-logo">
-        <a href="./">INVENTIO<b>LITE</b></a>
+        <a href="./"><b>SISTEMA BETA</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <form action="./?action=processlogin" method="post">

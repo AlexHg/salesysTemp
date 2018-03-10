@@ -3,7 +3,7 @@
 if(!isset($_SESSION["cartn"])){
 
 
-	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"]);
+	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"],"localid"=>$_POST['local_id']);
 	$_SESSION["cartn"] = array($product);
 
 
@@ -100,7 +100,7 @@ if($found==true){
 
 if($found==false){
     $nc = count($cart);
-	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"]);
+	$product = array("product_id"=>$_POST["product_id"],"q"=>$_POST["q"],"localid"=>$_POST['local_id']);
 	$cart[$nc] = $product;
 	print_r($cart);
 	$_SESSION["cartn"] = $cart;
